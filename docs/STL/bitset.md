@@ -130,7 +130,7 @@ for(reg int i=2;i<=n;i++){
 
 虽然说 `bitset` 的空间复杂度比较小，但是因为是离线，我们要求把每一次询问产生的 `bitset` 记录下来，一遍统计答案，所以 $\mathcal O(\frac{N^2}{w})$ 会炸，需要将其分为多个部分（每一个处理 `2e4` 次询问）。
 
-???- success "完整代码"
+??? success "完整代码"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
@@ -217,7 +217,7 @@ for(reg int i=2;i<=n;i++){
 其实就是把埃式筛的数组替换为 **bitset**，这里有一份对比的代码：
 
 
-???- success "对比代码"
+??? success "对比代码"
     ```cpp
     #include <bits/stdc++.h>
     using namespace std;
