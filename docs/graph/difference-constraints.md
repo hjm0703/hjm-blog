@@ -1,0 +1,99 @@
+# 差分约束
+
+依然是先明确问题类型：
+
+??? problem "问题描述"
+    有 `n` 个待定的树 `a[]`，要求满足 `m` 组操作满足：
+    
+    `a[i]-a[j] <= k` 每组 `i`, `j`, `k` 在变化
+    
+    现在询问你是否有一组解 `a[]`，满足上述要求。
+
+首先我们可以将问题转换为图论问题，当我们 `add(u,v,w)`, 及满足 `a[v]-a[u]<=w`
+
+当我们同时观察两条头尾相接的边时，则有 `add(x,y,w1)`, `add(y,z,w2)`，既满足 `a[y]-a[x]+a[z]-a[y] <= w1+w2`。
+
+及：`a[z]-a[x] <= w1+w2`。
+
+当我们令 `a[0]=inf`，`add(0,x,0)` 时，显然可以直接计算 `0` 到每一个点 `x` 的 **最段路** 然后令 `a[x] = dis`，可以证明，此时 `a[x]` 最大。
+
+但是如果路径中出现负环（如下），则一定无解：
+
+??? example "负环示例"
+    对于下面这组
+    
+    ```cpp
+    a[2]-a[1] >= 1
+    a[3]-a[2] >= 1
+    a[1]-a[3] >= 1
+    ```
+    
+    会连成：（未画 0）
+    
+    ![](https://youke1.picui.cn/s1/2025/11/12/6914254cf2939.png)
+    
+    其中出现了负环
+
+因此我们只需要判断一下图中是否有负环即可，可以用 `spfa`。
+
+??? code "CODE"
+    **[P4878 \[USACO05DEC\] Layout G](https://www.luogu.com.cn/problem/P4878)**
+    
+    ```cpp
+    #include<bits/stdc++.h>
+    using namespace std;
+    /*!@#$%^&*!@#$%^&*~~优美的分界线~~*&^%$#@!*&^%$#@!*/
+    const int N=1e4+5;
+    int n,m1,m2;
+    int dis[N],vis[N],cnt[N];
+    int tot,head[N],nxt[N<<1],ver[N<<1],edg[N<<1];
+    /*!@#$%^&*!@#$%^&*~~优美的分界线~~*&^%$#@!*&^%$#@!*/
+    void add_edg(int a,int b,int c){
+    	ver[++tot]=b,edg[tot]=c;
+    	nxt[tot]=head[a],head[a]=tot;
+    }
+    int spfa(int start){
+    	queue<int> Q;
+    	Q.push(start);
+    	memset(vis,0,sizeof vis);
+    	memset(cnt,0,sizeof cnt);
+    	memset(dis,0x3f,sizeof dis);
+    	dis[start]=0,vis[start]=1;
+    	while(!Q.empty()){
+    		int x=Q.front();Q.pop();
+    		vis[x]=0,cnt[x]++;
+    		for(int i=head[x];i;i=nxt[i]){
+    			int y=ver[i],w=edg[i];
+    			if(cnt[y]>n) return -1;//有负环
+    			if(dis[y]>dis[x]+w){
+    				dis[y]=dis[x]+w;
+    				if(vis[y]==0){
+    					Q.push(y);
+    					vis[y]=1;
+    				}
+    			}
+    		}
+    	}
+    	if(dis[n]>=0x3f3f3f3f) return -2;
+    	else return dis[n];
+    }
+    /*!@#$%^&*!@#$%^&*~~优美的分界线~~*&^%$#@!*&^%$#@!*/
+    signed main(){
+    	cin>>n>>m1>>m2;
+    	while(m1--){
+    		int a,b,d;cin>>a>>b>>d;
+    		add_edg(a,b,d);
+    	}
+    	while(m2--){
+    		int a,b,d;cin>>a>>b>>d;
+    		add_edg(b,a,-d);
+    	}
+    	for(int i=1;i<=n;i++) add_edg(0,i,0);
+    	for(int i=1;i<n;i++) add_edg(i+1,i,0);
+    	if(spfa(0)<=-1) cout<<spfa(0);
+    	else{
+    		cout<<spfa(1);
+    	}
+    	return 0;
+    }
+    ```

@@ -1,6 +1,6 @@
 # 站点信息
-site_name: hjm0703的博客
-site_description: hjm0703的博客
+site_name: hjm0703 的博客
+site_description: hjm0703 的博客
 site_author: hjm0703
 site_url: https://hjm-blog.pages.dev
 
@@ -87,5 +87,14 @@ extra_css:
 # 导航结构
 nav:
   - 首页: index.md
-  - STL: 
+  - STL:
     - bitset: STL/bitset.md
+  - 图论:
+    - LCA、树上前缀和与差分: graph/lca-prefix-sum.md
+    - DFS 序与树链剖分: graph/dfs-order-hld.md
+    - 最段路与 MST: graph/shortest-path-mst.md
+    - 差分约束: graph/difference-constraints.md
+    - Tarjan: graph/tarjan.md
+    - 2-SAT 适定性问题: graph/2-sat.md
+    - 二分图匹配: graph/bipartite-matching.md
+    - 基环树: graph/pseudoforest.md
