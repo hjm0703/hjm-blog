@@ -90,11 +90,13 @@ nav:
   - STL:
     - bitset: STL/bitset.md
   - 图论:
-    - LCA、树上前缀和与差分: graph/lca-prefix-sum.md
-    - DFS 序与树链剖分: graph/dfs-order-hld.md
-    - 最段路与 MST: graph/shortest-path-mst.md
-    - 差分约束: graph/difference-constraints.md
+    - LCA、树上前缀和与差分: graph/LCA、树上前缀和与差分.md
+    - DFS 序与树链剖分: graph/DFS 序与树链剖分.md
+    - 最段路与 MST: graph/最段路与 MST.md
+    - 差分约束: graph/差分约束.md
     - Tarjan: graph/tarjan.md
-    - 2-SAT 适定性问题: graph/2-sat.md
-    - 二分图匹配: graph/bipartite-matching.md
-    - 基环树: graph/pseudoforest.md
+    - 2-SAT 适定性问题: graph/2-SAT 适定性问题.md
+    - 二分图匹配: graph/二分图匹配.md
+    - 基环树: graph/基环树.md
+  - 题目总结:
+    - 做题总结: problem/做题总结.md
