@@ -21,21 +21,16 @@ theme:
       scheme: default
       primary: white
       accent: red
-      toggle:
-        icon: material/weather-sunny
-        name: 切换到深色模式
     # 深色模式
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: blue
       accent: blue
-      toggle:
-        icon: material/weather-night
-        name: 切换到亮色模式
   features:
     - navigation.tabs
     - navigation.instant
     - content.code.copy
+    - content.action.edit
   font:
     text: Fira Sans
     code: Fira Mono
@@ -75,14 +70,17 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
 
-# 额外 JavaScript（MathJax 支持）
-extra_javascript:
-  - javascripts/math-csr.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-
 # 额外 CSS
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/theme-picker.css
+
+# 额外 JavaScript（MathJax 支持）
+# 注意：必须先加载 MathJax 主脚本，再加载配置文件
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/math-csr.js
+  - javascripts/theme-picker.js
 
 # 导航结构
 nav:
