@@ -28,7 +28,6 @@ theme:
       accent: blue
   features:
     - navigation.tabs
-    - navigation.instant
     - content.code.copy
     - content.action.edit
   font:

@@ -17,11 +17,11 @@ MathJax = {
 };
 
 // 监听 Material 主题的页面加载事件（支持 navigation.instant）
+// 这是官方推荐的方式，必须在 MathJax 加载后调用
 document$.subscribe(function () {
-  MathJax.typesetPromise();
-});
-
-// 监听 MkDocs Material 的 instant 导航事件
-document.addEventListener('DOMContentLoaded', function () {
+  // 清除之前的渲染缓存，确保新页面内容正确渲染
+  MathJax.startup.output.clearCache();
+  MathJax.typesetClear();
+  MathJax.texReset();
   MathJax.typesetPromise();
 });
