@@ -1,7 +1,8 @@
 // MathJax 配置（与 OI Wiki 一致）
 MathJax = {
   chtml: {
-    matchFontHeight: false
+    matchFontHeight: true,
+    scale: 0.9
   },
   tex: {
     inlineMath: [['$', '$'], ['\\(', '\\)']],

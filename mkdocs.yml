@@ -30,9 +30,6 @@ theme:
     - navigation.tabs
     - content.code.copy
     - content.action.edit
-  font:
-    text: Fira Sans
-    code: Fira Mono
 
 # Markdown 扩展配置
 markdown_extensions:
@@ -75,10 +72,10 @@ extra_css:
   - stylesheets/theme-picker.css
 
 # 额外 JavaScript（MathJax 支持）
-# 注意：必须先加载 MathJax 主脚本，再加载配置文件
+# 注意：必须先加载 MathJax 配置，再加载 MathJax 主脚本
 extra_javascript:
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - javascripts/math-csr.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - javascripts/theme-picker.js
 
 # 导航结构

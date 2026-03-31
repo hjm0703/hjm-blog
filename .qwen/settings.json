@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(oi-wiki.org)",
+      "WebFetch(cdn.jsdelivr.net)",
+      "WebFetch(raw.githubusercontent.com)",
+      "Bash(mkdocs *)"
+    ]
+  },
+  "$version": 3
+}

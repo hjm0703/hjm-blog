@@ -1,5 +1,10 @@
 /* 与 OI Wiki 一致的自定义样式 */
 
+/* 修复字体大小问题 */
+html, body {
+  font-size: 16px !important;
+}
+
 /* Logo title */
 .md-header__topic:first-child {
   font-weight: initial !important;
@@ -89,6 +94,11 @@ blockquote.page-copyright i.md-icon {
 mjx-container > img {
   width: 0;
   height: 0;
+}
+
+/* MathJax 字体大小 - 使用 !important 覆盖 MathJax 内联样式 */
+mjx-container.MathJax {
+  font-size: 90% !important;
 }
 
 [data-md-color-scheme="slate"] {
