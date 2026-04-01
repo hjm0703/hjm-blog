@@ -5,9 +5,9 @@ html, body {
   font-size: 18px !important;
 }
 
-/* 调整整体容器宽度 - 减小内容区域宽度 */
+/* 调整整体容器宽度 */
 .md-grid {
-  max-width: 48rem !important;
+  max-width: 60rem !important;
 }
 
 /* Logo title */
