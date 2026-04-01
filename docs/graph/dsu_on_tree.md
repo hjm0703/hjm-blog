@@ -25,7 +25,7 @@
     所以总共会加入大概 $\mathcal O(N \log N)$ 此，时间复杂度得证。
 
 
-!!!+ note "例题: [CF741D](https://vjudge.net/problem/CodeForces-741D)"
+???+ note "例题: [CF741D](https://vjudge.net/problem/CodeForces-741D)"
     我们发现对于一个字符串，其能否组成一个回文串，此时一定满足只有一种字母数量为奇数。
 
     所以我们令 $c_x$ 为从 $root$ 到 $x$ 的路径上字母的奇偶性（状压存储）。
