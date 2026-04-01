@@ -1,23 +1,13 @@
 /* 与 OI Wiki 一致的自定义样式 */
 
-/* 字体大小调整 - 整体放大 1.5 倍 */
+/* 字体大小调整 */
 html, body {
-  font-size: 24px !important;
+  font-size: 18px !important;
 }
 
-/* 调整整体容器宽度 */
+/* 调整整体容器宽度 - 减小内容区域宽度 */
 .md-grid {
-  max-width: 72rem !important;
-}
-
-/* 增大代码块字体 */
-.md-typeset pre, .md-typeset code {
-  font-size: 0.9em !important;
-}
-
-/* 增大表格字体 */
-.md-typeset table {
-  font-size: 1em !important;
+  max-width: 48rem !important;
 }
 
 /* Logo title */
