@@ -5,7 +5,7 @@ site_author: hjm0703
 site_url: https://hjm-blog.pages.dev
 
 # 版权信息
-copyright: © 2024 hjm0703
+copyright: © 2026 hjm0703
 
 # 主题配置（与 OI Wiki 一致）
 theme:
@@ -95,5 +95,7 @@ nav:
     - 2-SAT 适定性问题: graph/2-SAT 适定性问题.md
     - 二分图匹配: graph/二分图匹配.md
     - 基环树: graph/基环树.md
+    - 点分治 & 点分树: graph/点分治和点分树.md
+    - dsu on tree: graph/dsu_on_tree.md
   - 题目总结:
     - 做题总结: problem/做题总结.md
