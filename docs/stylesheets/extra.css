@@ -2,12 +2,12 @@
 
 /* 字体大小调整 */
 html, body {
-  font-size: 18px !important;
+  font-size: 20px !important;
 }
 
 /* 调整整体容器宽度 */
 .md-grid {
-  max-width: 77rem !important;
+  max-width: 67rem !important;
 }
 
 /* Logo title */

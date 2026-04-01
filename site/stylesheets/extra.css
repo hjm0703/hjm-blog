@@ -1,8 +1,13 @@
 /* 与 OI Wiki 一致的自定义样式 */
 
-/* 修复字体大小问题 */
+/* 字体大小调整 */
 html, body {
-  font-size: 16px !important;
+  font-size: 18px !important;
+}
+
+/* 调整整体容器宽度 */
+.md-grid {
+  max-width: 77rem !important;
 }
 
 /* Logo title */

@@ -788,6 +788,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%82%B9%E5%88%86%E6%B2%BB%E5%92%8C%E7%82%B9%E5%88%86%E6%A0%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    点分治 & 点分树
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsu_on_tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dsu on tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -958,16 +1014,17 @@
 
 <h1 id="2-sat">2 - SAT 适定性问题<a class="headerlink" href="#2-sat" title="Permanent link"></a></h1>
 <h2 id="_1">解决问题可食用范围<a class="headerlink" href="#_1" title="Permanent link"></a></h2>
-<p>有 <code>n</code> 个非 0 及 1 的变量 <code>a[i]</code>，满足以下 <code>m</code> 个条件：</p>
-<details class="problem">
-<summary>问题描述</summary>
-<p>如果 <code>a[i]</code> 为 <code>x</code>，则 <code>a[j]</code> 为 <code>y</code>。</p>
-</details>
+<p>有 <span class="arithmatex">\(n\)</span> 个非 0 及 1 的变量 <span class="arithmatex">\(a_i\)</span>，满足以下 <span class="arithmatex">\(m\)</span> 个条件：</p>
+<div class="admonition problem">
+<p class="admonition-title">问题描述</p>
+<p>如果 <span class="arithmatex">\(a_i\)</span> 为 <span class="arithmatex">\(x\)</span>，则 <span class="arithmatex">\(a_j\)</span> 为 <span class="arithmatex">\(y\)</span>。</p>
+</div>
 <h2 id="_2">解决思路<a class="headerlink" href="#_2" title="Permanent link"></a></h2>
-<p>我们仍然要先将其转化为 <strong>图论问题</strong>，首先我们把每一个 <code>a[i]</code> 分成两个点：<code>i</code>，<code>i+n</code>，表示 <code>a[i] = 0</code>，<code>a[i] = 1</code>。</p>
-<p>对于一条边 <code>(u,v)</code>，表示如果 <code>u%n</code> 为 <code>u/n</code> 则 <code>v%n</code> 为 <code>v/n</code>。</p>
+<p>我们仍然要先将其转化为 <strong>图论问题</strong>，首先我们把每一个 <span class="arithmatex">\(a_i\)</span> 分成两个点：<span class="arithmatex">\(i_1\)</span>，<span class="arithmatex">\(i_2\)</span>，表示是否满足 <span class="arithmatex">\(a_i = 0\)</span>，<span class="arithmatex">\(a_i = 1\)</span>。</p>
+<p>对于一条边 <span class="arithmatex">\((u_x,v_y)\)</span>，表示如果 <span class="arithmatex">\(a_u = x\)</span> 则 <span class="arithmatex">\(a_v\)</span> 为 <span class="arithmatex">\(y\)</span> 。</p>
+<p>比如对于边 <span class="arithmatex">\((1_0,2_1)\)</span> （这里 <span class="arithmatex">\(x_y\)</span> 表示 <span class="arithmatex">\(a_x\)</span> 是否为 <span class="arithmatex">\(y\)</span> 的这个短板），表示如果 <span class="arithmatex">\(a_1\)</span> 为 <span class="arithmatex">\(0\)</span> ，那么 <span class="arithmatex">\(a_2\)</span> 为 <span class="arithmatex">\(1\)</span></p>
 <p>然后我们就可以建出一个有向图。</p>
-<details class="example">
+<details class="example" open="open">
 <summary>示例输入</summary>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1014,7 +1071,7 @@ p \Rightarrow q
 <p><img alt="屏幕截图 2025-11-13 093122.png" src="https://youke1.picui.cn/s1/2025/11/13/691534cc62fe0.png" /></p>
 <p>就只有两个 <code>scc</code> 了，我们显然要满足上面的，及答案为 <code>1011</code>。</p>
 <p>所以我们不仅要连正边，也要连反边。</p>
-<details class="code" open="open">
+<details class="- code">
 <summary>CODE</summary>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1134,7 +1191,7 @@ p \Rightarrow q
 <h2 id="_3">扩展<a class="headerlink" href="#_3" title="Permanent link"></a></h2>
 <p>一般的题问你是否有解，或者有 <strong>SPJ</strong>。</p>
 <p>如果需要你判断不确定，就需要用上面的判断是否在一条链上，否则不知道：</p>
-<details class="code" open="open">
+<details class="- code">
 <summary>扩展 CODE</summary>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1347,7 +1404,7 @@ p \Rightarrow q
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      © 2024 hjm0703
+      © 2026 hjm0703
     </div>
   
   

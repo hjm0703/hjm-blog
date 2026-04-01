@@ -788,6 +788,62 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%82%B9%E5%88%86%E6%B2%BB%E5%92%8C%E7%82%B9%E5%88%86%E6%A0%91/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    点分治 & 点分树
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsu_on_tree/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    dsu on tree
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -958,10 +1014,10 @@
 
 <h1 id="_1">二分图匹配<a class="headerlink" href="#_1" title="Permanent link"></a></h1>
 <h2 id="_2">什么是二分图<a class="headerlink" href="#_2" title="Permanent link"></a></h2>
-<details class="definition">
-<summary>定义</summary>
+<div class="admonition definition">
+<p class="admonition-title">定义</p>
 <p>二分图是一个没有奇环的图</p>
-</details>
+</div>
 <p>这是因为二分图的点要分为左部和右部，而边只能连接左部和右部。</p>
 <p>如果要回到原点，必然走偶数次，我们可以用染色法判断</p>
 <details class="code" open="open">
@@ -997,7 +1053,7 @@
 <p>匹配指的是一个边的集合，使其两两不公用节点。</p>
 <p>我们发现所有的边可以连成多条链，且每一条必定为一个 <code>10101010101</code> 的匹配串，且我们可以尝试对匹配串取反</p>
 <p>比如：</p>
-<details class="example">
+<details class="example" open="open">
 <summary>示例</summary>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1057,7 +1113,7 @@
 <p>如这道题：<strong><a href="https://www.luogu.com.cn/problem/P1963">P1963 变换序列 - 洛谷</a></strong></p>
 <p>我们对每一个 <code>i</code> 连上 <code>i+d</code>，<code>i-d</code>，<code>i-(n-d)</code>，<code>i+(n-d)</code>。</p>
 <p>然后直接跑二分图：</p>
-<details class="code" open="open">
+<details class="code">
 <summary>CODE</summary>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -1203,7 +1259,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      © 2024 hjm0703
+      © 2026 hjm0703
     </div>
   
   
