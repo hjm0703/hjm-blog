@@ -94,5 +94,6 @@ nav:
     - 基环树: graph/基环树.md
     - 点分治 & 点分树: graph/点分治和点分树.md
     - dsu on tree: graph/dsu_on_tree.md
+    - Link Cut Tree: graph/LCT.md
   - 题目总结:
     - 做题总结: problem/做题总结.md

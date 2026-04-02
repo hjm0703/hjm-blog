@@ -3,7 +3,7 @@
 !!! note "备注"
     先感谢以前自己居然写了总结，I love char
     
-    但是，什么垃圾 latex
+    但是，什么垃圾 $\LaTeX$
 
 ## DFS 序
 
@@ -79,7 +79,7 @@
 
 - **build2**: `top[]`, `dfn[]`。
 
-??? code "代码"
+???+ code "代码"
     ```cpp
     void build1(int x,int ff){
     	son[x]=-1,siz[x]=1;
@@ -109,7 +109,7 @@
 
 **从 x 到 y 结点最短路径上所有节点的值都加上 z**
 
-??? code "CODE"
+???+ code "CODE"
     ```cpp
     void update(int x,int y,int k){
     	k%=P;
@@ -125,7 +125,7 @@
 
 **求树从 x 到 y 结点最短路径上所有节点的值之和**
 
-??? code "CODE"
+???+ code "CODE"
     ```cpp
     int query(int x,int y){
     	int ans=0;
@@ -144,7 +144,7 @@
 
 **将以 x 为根节点的子树内所有节点值都加上 z**
 
-??? code "CODE"
+???+ code "CODE"
     ```cpp
     void updatetree(int x,int k){
     	change(1,dfn[x],dfn[x]+siz[x]-1,k);
@@ -153,14 +153,15 @@
 
 **求以 x 为根节点的子树内所有节点值之和**
 
-??? code "CODE"
+???+ code "CODE"
     ```cpp
     int querytree(int x){
     	return ask(1,dfn[x],dfn[x]+siz[x]-1);
     }
     ```
 
-??? code "完整 CODE"
+??? success "完整 CODE"
+
     ```cpp
     int cnt,rnk[N],a[N];//DFS 序，初始点权
     int fa[N],dep[N],siz[N],son[N],top[N],dfn[N];//点的信息
@@ -278,4 +279,84 @@
     T.build(1,1,n)
     build1(root,0);
     build2(root,0,root);
+    ```
+
+## 换根操作
+
+对于重链剖分这样静态的结构，很明显如果想要换根比较困难，但是其实我们可以不是真是的换个：
+
+- 换根操作： 记录一个 `root` 为当前根的位置。
+- 链上操作： 没有任何影响，直接计算。
+- 子树操作： 分类讨论当前 `root` 的位置。
+- 动态 LCA: 分类讨论当前 `root` 的位置。
+
+???+ info "子树操作"
+    此时有两种情况：
+
+    1. 如果 `root` 不在 $x$ 所在子树中，此时完全一样。
+    2. 如果 `root` 在子树中，那么下图区域才是真正的子树。
+
+    ![图片崩了](/graph/images/graph5.png)
+
+    即:
+    $$
+    \begin{array}{c}
+    y = jump(x,root), \\
+    \complement _U [dfn_y,dfn_y+siz_y-1]
+    \end{array}
+    $$
+    （这里 $jump(x,y)$ 表示 $x$ 在原树上 $y$ 方向的儿子，可以通过倍增求解）
+
+    ```cpp
+    namespace LCA{
+        // ··· LCA的正常其他代码
+        int jump(int x,int y){
+            if(dep[x]<dep[y]) swap(x,y);
+            for(int i=20;i>=0;i--){
+                if(dep[fa[x][i]]>dep[y])
+                    x=fa[x][i];
+            }
+            return x;
+        }
+    }
+
+    int querytree(int x){
+        if(x==root) return T.ask(1,1,n,1,n);
+        else if(LCA::lca(x,root)!=x) 
+            return T.ask(1,1,n,dfn[x],dfn[x]+siz[x]-1);
+        else{
+            int jmp=LCA::jump(root,x);
+            int ans=0;
+            ans+=T.ask(1,1,n,1,n);
+            ans-=T.ask(1,1,n,dfn[jmp],dfn[jmp]+siz[jmp]-1);
+            return ans;
+        }
+    }
+
+    ```
+
+???+ info "动态 LCA"
+    依然分 4 种情况：
+
+    令 $p$ 为 $lca(x,root)$ ， $q$ 为 $lca(x,root)$
+
+    - 如果 $p = root$ 且 $q = root$ ,代表 $root$ 在原树上是 $x$ ，$y$ 的祖先。此时相当于 $root$ 是 $x$ 和 $y$ 的祖先，此时答案为原树上 答案为 $lca(x,y)$。
+    - 如果 $p = root$ 或 $q = root$ ，此时 $x$ ,$y$ , $root$ 在一条简单路径上，并且 $root$ 在中间，此时答案为 $root$ 。
+    - 如果两者都不成立，但是 $p = q$ ，此时如图，答案为 $lca(x,y)$ .
+    - 否则，答案为 $p,q$ 中深度更大的那个点。
+
+    ![图炸了](/graph/images/graph6.png)
+
+    ```cpp
+    int lca(int x,int y){
+        int p=LCA::lca(x,root),q=LCA::lca(y,root);
+        if(p==root && q==root){
+            return LCA::lca(x,y);
+        }else if(p==root || q==root){
+            return root;
+        }else{
+            if(p==q) return LCA::lca(x,y);
+            else return (LCA::dep[p]>LCA::dep[q]?p:q);
+        }
+    }
     ```
