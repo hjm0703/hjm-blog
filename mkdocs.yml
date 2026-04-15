@@ -30,6 +30,7 @@ theme:
     - navigation.tabs
     - content.code.copy
     - content.action.edit
+    - navigation.instant.preview   # 添加这一行即可全局启用
 
 # Markdown 扩展配置
 markdown_extensions:
@@ -81,8 +82,6 @@ extra_javascript:
 # 导航结构
 nav:
   - 首页: index.md
-  - STL:
-    - bitset: STL/bitset.md
   - 图论:
     - LCA、树上前缀和与差分: graph/LCA、树上前缀和与差分.md
     - DFS 序与树链剖分: graph/DFS 序与树链剖分.md
@@ -95,5 +94,8 @@ nav:
     - 点分治 & 点分树: graph/点分治和点分树.md
     - dsu on tree: graph/dsu_on_tree.md
     - Link Cut Tree: graph/LCT.md
-  - 题目总结:
+    - 矩阵树定理: graph/矩阵树定理.md
+    - 网络流: graph/网络流.md
+  - 杂项:
+    - bitset: STL/bitset.md
     - 做题总结: problem/做题总结.md

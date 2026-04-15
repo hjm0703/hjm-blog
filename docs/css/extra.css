@@ -92,8 +92,14 @@ mjx-container > img {
 }
 
 /* MathJax 字体大小 - 使用 !important 覆盖 MathJax 内联样式 */
+/* 全局 LaTeX 字体大小 95% */
 mjx-container.MathJax {
-  font-size: 90% !important;
+  font-size: 95% !important;
+}
+
+/* 折叠块（details）内的 LaTeX 字体大小 110% */
+details mjx-container.MathJax {
+  font-size: 110% !important;
 }
 
 [data-md-color-scheme="slate"] {
