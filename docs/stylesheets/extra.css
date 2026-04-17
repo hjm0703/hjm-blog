@@ -103,7 +103,22 @@ mjx-container > img {
 
 /* MathJax 字体大小 - 使用 !important 覆盖 MathJax 内联样式 */
 mjx-container.MathJax {
-  font-size: 90% !important;
+  font-size: 95% !important;
+}
+
+/* 所有 admonition 内的 LaTeX */
+.admonition mjx-container.MathJax {
+  font-size: 115% !important;
+}
+
+/* details 折叠块内的 LaTeX 字体大小 - 覆盖内联样式 */
+details.note mjx-container.MathJax,
+details.question mjx-container.MathJax,
+details.info mjx-container.MathJax,
+details.warning mjx-container.MathJax,
+details.tip mjx-container.MathJax,
+details[class] mjx-container.MathJax {  /* 匹配任何有 class 的 details */
+  font-size: 130% !important;
 }
 
 [data-md-color-scheme="slate"] {

@@ -96,6 +96,9 @@ nav:
     - Link Cut Tree: graph/LCT.md
     - 矩阵树定理: graph/矩阵树定理.md
     - 网络流: graph/网络流.md
+    - Kruskal 重构树: graph/Kruskal 重构树.md
+    - 树哈希: graph/树哈希.md
+    - 斯坦纳树: graph/斯坦纳树.md
   - 杂项:
     - bitset: STL/bitset.md
     - 做题总结: problem/做题总结.md
