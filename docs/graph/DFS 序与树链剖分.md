@@ -79,88 +79,86 @@
 
 - **build2**: `top[]`, `dfn[]`。
 
-???+ code "代码"
-    ```cpp
-    void build1(int x,int ff){
-    	son[x]=-1,siz[x]=1;
-    	for(int i=head[x];i;i=nxt[i]){
-    		int y=ver[i];
-    		if(y==ff) continue;
-    		dep[y]=dep[x]+1;
-    		fa[y]=x;
-    		build1(y,x);
-    		siz[x]+=siz[y];
-    		if(son[x]==-1||siz[y]>siz[son[x]]) son[x]=y;
-    	}
+```cpp
+void build1(int x,int ff){
+    son[x]=-1,siz[x]=1;
+    for(int i=head[x];i;i=nxt[i]){
+        int y=ver[i];
+        if(y==ff) continue;
+        dep[y]=dep[x]+1;
+        fa[y]=x;
+        build1(y,x);
+        siz[x]+=siz[y];
+        if(son[x]==-1||siz[y]>siz[son[x]]) son[x]=y;
     }
-    void build2(int x,int ff,int tp){
-    	top[x]=tp;
-    	dfn[x]=++cnt;
-    	rnk[cnt]=x;
-    	if(son[x]==-1) return;
-    	build2(son[x],x,tp);
-    	for(int i=head[x];i;i=nxt[i]){
-    		int y=ver[i];
-    		if(y==ff||y==son[x]) continue;
-    		build2(y,x,y);
-    	}
+}
+void build2(int x,int ff,int tp){
+    top[x]=tp;
+    dfn[x]=++cnt;
+    rnk[cnt]=x;
+    if(son[x]==-1) return;
+    build2(son[x],x,tp);
+    for(int i=head[x];i;i=nxt[i]){
+        int y=ver[i];
+        if(y==ff||y==son[x]) continue;
+        build2(y,x,y);
     }
-    ```
+}
+```
 
 **从 x 到 y 结点最短路径上所有节点的值都加上 z**
 
-???+ code "CODE"
-    ```cpp
-    void update(int x,int y,int k){
-    	k%=P;
-    	while(top[x]!=top[y]){
-    		if(dep[top[x]]<dep[top[y]]) swap(x,y);
-    		change(1,dfn[top[x]],dfn[x],k);
-    		x=fa[top[x]];
-    	}
-    	if(dep[x]>dep[y]) swap(x,y);
-    	change(1,dfn[x],dfn[y],k);
+```cpp
+void update(int x,int y,int k){
+    k%=P;
+    while(top[x]!=top[y]){
+        if(dep[top[x]]<dep[top[y]]) swap(x,y);
+        change(1,dfn[top[x]],dfn[x],k);
+        x=fa[top[x]];
     }
-    ```
+    if(dep[x]>dep[y]) swap(x,y);
+    change(1,dfn[x],dfn[y],k);
+}
+```
 
 **求树从 x 到 y 结点最短路径上所有节点的值之和**
 
-???+ code "CODE"
-    ```cpp
-    int query(int x,int y){
-    	int ans=0;
-    	while(top[x]!=top[y]){
-    		if(dep[top[x]]<dep[top[y]]) swap(x,y);
-    		ans+=ask(1,dfn[top[x]],dfn[x]);
-    		ans%=P;
-    		x=fa[top[x]];
-    	}
-    	if(dep[x]>dep[y]) swap(x,y);
-    	ans+=ask(1,dfn[x],dfn[y]);
-    	ans%=P;
-    	return ans;
+
+```cpp
+int query(int x,int y){
+    int ans=0;
+    while(top[x]!=top[y]){
+        if(dep[top[x]]<dep[top[y]]) swap(x,y);
+        ans+=ask(1,dfn[top[x]],dfn[x]);
+        ans%=P;
+        x=fa[top[x]];
     }
-    ```
+    if(dep[x]>dep[y]) swap(x,y);
+    ans+=ask(1,dfn[x],dfn[y]);
+    ans%=P;
+    return ans;
+}
+```
 
 **将以 x 为根节点的子树内所有节点值都加上 z**
 
-???+ code "CODE"
-    ```cpp
-    void updatetree(int x,int k){
-    	change(1,dfn[x],dfn[x]+siz[x]-1,k);
-    }
-    ```
+
+```cpp
+void updatetree(int x,int k){
+    change(1,dfn[x],dfn[x]+siz[x]-1,k);
+}
+```
 
 **求以 x 为根节点的子树内所有节点值之和**
 
-???+ code "CODE"
-    ```cpp
-    int querytree(int x){
-    	return ask(1,dfn[x],dfn[x]+siz[x]-1);
-    }
-    ```
 
-??? success "完整 CODE"
+```cpp
+int querytree(int x){
+    return ask(1,dfn[x],dfn[x]+siz[x]-1);
+}
+```
+
+??? success "完整 示例代码"
 
     ```cpp
     int cnt,rnk[N],a[N];//DFS 序，初始点权
@@ -296,7 +294,7 @@
     1. 如果 `root` 不在 $x$ 所在子树中，此时完全一样。
     2. 如果 `root` 在子树中，那么下图区域才是真正的子树。
 
-    ![图片崩了](/graph/images/graph5.png)
+    ![图片崩了](images/graph5.png)
 
     即:
     $$
@@ -345,7 +343,7 @@
     - 如果两者都不成立，但是 $p = q$ ，此时如图，答案为 $lca(x,y)$ .
     - 否则，答案为 $p,q$ 中深度更大的那个点。
 
-    ![图炸了](/graph/images/graph6.png)
+    ![图炸了](images/graph6.png)
 
     ```cpp
     int lca(int x,int y){

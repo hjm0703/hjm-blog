@@ -61,6 +61,9 @@ markdown_extensions:
         - name: math
           class: arithmatex
           format: !!python/name:pymdownx.arithmatex.fence_mathjax_format
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
@@ -99,6 +102,9 @@ nav:
     - Kruskal 重构树: graph/Kruskal 重构树.md
     - 树哈希: graph/树哈希.md
     - 斯坦纳树: graph/斯坦纳树.md
+    - 支配树: graph/支配树.md
+    - 弦图: graph/弦图.md
+    - 竞赛图: graph/竞赛图.md
   - 杂项:
-    - bitset: STL/bitset.md
-    - 做题总结: problem/做题总结.md
+    - bitset: others/bitset.md
+    - 做题总结: others/做题总结.md

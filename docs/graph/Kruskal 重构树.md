@@ -16,33 +16,31 @@
 
 我们发现前四步几乎就是 Kruskal 的步骤，只是在第五步把 Kruskal 的过程通过图的办法记录了下来。
 
-??? success "示例代码"
+```cpp
 
-    ```cpp
-    
-    struct DSU;
-    DSU T;
+struct DSU;
+DSU T;
 
-    struct edge{
-        int x,y,w;
-        bool operator < (const edge& x) const {
-            return w < x.w; // 根据题目要求
-        }
-    }e[M];
-
-    int cnt;
-    void Kruskal() {
-        sort(e+1, e+m+1);
-        for(int i=1; i<=m; i++){
-            int x=T.find(e[i].x), y=T.find(e[i].y);
-            if(x==y) continue;
-            cnt++, val[cnt]=e[i].w;
-            T.fa[x]=T.fa[y]=T.fa[cnt]=cnt;
-            v[cnt].push_back(x);
-            v[cnt].push_back(y);
-        }
+struct edge{
+    int x,y,w;
+    bool operator < (const edge& x) const {
+        return w < x.w; // 根据题目要求
     }
-    ```
+}e[M];
+
+int cnt;
+void Kruskal() {
+    sort(e+1, e+m+1);
+    for(int i=1; i<=m; i++){
+        int x=T.find(e[i].x), y=T.find(e[i].y);
+        if(x==y) continue;
+        cnt++, val[cnt]=e[i].w;
+        T.fa[x]=T.fa[y]=T.fa[cnt]=cnt;
+        v[cnt].push_back(x);
+        v[cnt].push_back(y);
+    }
+}
+```
 
 ## 性质
 
@@ -51,6 +49,7 @@
 1. 树上的一个子树对应 Kruskal 过程中的一个连通块。
 2. $x$, $y$ 的最小瓶颈路（路径上最大边最小值）等于 LCA 的权值。
 3. 同一到根链上点越深，权值越小/大。
+4. 对于一颗子树，假设其根的权值为 $x$ ， 那么这个子集中的任意点都可以在不通过边权大于 $x$ 的边互相到达，并且这个子集也是他们唯一可以到达的点
 
 ## 应用
 

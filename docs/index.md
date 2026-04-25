@@ -4,7 +4,7 @@
 
 
 
-![](/images/logo.png)
+![](images/logo.png)
 
 
 
