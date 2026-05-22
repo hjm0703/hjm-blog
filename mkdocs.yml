@@ -109,6 +109,22 @@ nav:
     - 支配树: graph/支配树.md
     - 弦图: graph/弦图.md
     - 竞赛图: graph/竞赛图.md
+  - DP动态规划: 
+    - 概述: dp/index.md
+    - 背包问题: dp/背包问题.md
+    - 单调队列优化: dp/单调队列优化DP.md
+    - 四边形不等式: dp/四边形不等式优化.md
+    - WQS 二分: dp/WQS二分.md
+    - Slope Trick 优化: dp/slope-trick.md
+  - 数据结构进阶:
+    - 概述: ds/index.md
+    - 左偏树: ds/左偏树.md
+    - 莫队: ds/莫队.md
+    - 操作树: ds/操作树.md
+    - K-D Tree: ds/K-D Tree.md
   - 杂项:
     - bitset: others/bitset.md
+    - 构造: others/构造.md
     - 做题总结: others/做题总结.md
+    - 如何写好懒标记: others/如何写好懒标记.md
+  
