@@ -125,6 +125,7 @@ nav:
   - 杂项:
     - bitset: others/bitset.md
     - 构造: others/构造.md
+    - FFT: others/FFT.md
     - 做题总结: others/做题总结.md
     - 如何写好懒标记: others/如何写好懒标记.md
   
