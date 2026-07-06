@@ -127,6 +127,8 @@ nav:
     - Min_25: math/Min_25.md
     - 生成函数: math/生成函数.md
     - 线性基: math/线性基.md
+  - 字符串进阶:
+    - SA 数组: str/SA数组.md
   - 杂项:
     - bitset: others/bitset.md
     - 构造: others/构造.md

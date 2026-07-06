@@ -7,4 +7,8 @@
         "**/javascripts": true,
         "**/stylesheets": true,
     },
+    "markdown.styles": [
+        "D:\\noip\\HJM\\.vscode\\markdown.css"
+    ],
+    "git.ignoreLimitWarning": true
 }

@@ -155,7 +155,7 @@ signed main() {
     for(int i=0; i<mxn; i++) cout<< (int)round(c[i].real()/t) <<' '; 
     return 0;
 }
-````
+```
 
 ## NTT
 

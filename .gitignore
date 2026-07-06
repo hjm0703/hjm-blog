@@ -1,5 +1,8 @@
 .env
 .env.*
+.venv
+docs/.obsidian
+docs/.vscode
 !.env.example
 
 site/
