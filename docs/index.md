@@ -1,4 +1,5 @@
 <!-- 引入 Font Awesome 6 图标库 -->
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
@@ -153,6 +154,7 @@
 </style>
 
 <!-- 英雄区：星空特效 + 居中文字 + 靠右副标题 -->
+
 <div class="star-bg">
   <div class="star-content">
     <div class="main-quote">
@@ -164,11 +166,13 @@
 </div>
 
 <!-- logo.png 占满一行 -->
+
 <div class="full-width-img">
   <img src="images/logo.png" alt="blog logo" onerror="this.style.display='none'">
 </div>
 
 <!-- 两列信息 -->
+
 <div class="grid-2">
   <div class="flat-card">
     <h3><i class="fas fa-pen-fancy"></i> 此地</h3>
@@ -187,6 +191,7 @@
 </div>
 
 <!-- 好用的网址 -->
+
 <div class="flat-card">
   <h3><i class="fas fa-link"></i> 好用的网址</h3>
   <div class="link-group">
@@ -198,6 +203,7 @@
 </div>
 
 <!-- 洛谷 logo 占满一行 -->
+
 <div class="luogu-full">
   <a href="https://luogu.com.cn" target="_blank">
     <img src="https://fecdn.luogu.com.cn/luogu/logo.png?0fdd294ff62e331d2f70e1a37ba4ee02" alt="洛谷">

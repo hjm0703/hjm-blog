@@ -26,48 +26,52 @@
 
 具体来说，如果此时我们把 $mid$ 带进去计算最优解，然后假设对于约束条件使用了 $k'$ 个，那么：
 
-- 如果 $k' < k$ 说明约束的太多了，所以令 $r = mid-1$ 。
+* 如果 $k' < k$ 说明约束的太多了，所以令 $r = mid-1$ 。
 
-- 如果 $k' = k$ ，此时说明约束正好达成，直接输出答案 。
+* 如果 $k' = k$ ，此时说明约束正好达成，直接输出答案 。
 
-- 如果 $k' > k$ 说明约束的太少了，所以令 $l = mid+1$ 。
+* 如果 $k' > k$ 说明约束的太少了，所以令 $l = mid+1$ 。
 
-!!! warning "细节需注意"
-    
-    - 前面的情况时对应 DP方程 取 $\min$ 的情况的，如果为 $\max$ 那么需要颠倒，因为凸包的方向颠倒了
-
-    - 如果出现类似 **至多选择 $k$** 这样的情况，需要在二分的每一个满足要求的地方记录答案，但是记得还原 $g$ 时要减去的一定为 $k \times mid$ 而不是真是使用的 $cnt \times mid$ ，然后答案选择最后出现的一个。
-
-    - 初始的 $l, r$ 最稳妥为 $[-inf, inf]$ 。
+> [!warning] 细节需注意
+>
+> * 前面的情况时对应 DP方程 取 $\min$ 的情况的，如果为 $\max$ 那么需要颠倒，因为凸包的方向颠倒了
+>
+> * 如果出现类似 **至多选择 $k$** 这样的情况，需要在二分的每一个满足要求的地方记录答案，但是记得还原 $g$ 时要减去的一定为 $k \times mid$ 而不是真是使用的 $cnt \times mid$ ，然后答案选择最后出现的一个。
+>
+> * 初始的 $l, r$ 最稳妥为 $[-inf, inf]$ 。
 
 代码实现：
 
 === "求解最小值"
-    注意这里对应的是下凸函数
-    
-    ```cpp
-    int l=-inf, r=inf, ans=0;
-    while(l<=r) {
-        int mid=(l+r)>>1;
-        auto res=check(mid); // 第一项为加上额外代价的答案， 第二项为真实使用 k
-        if(res.second<=m) {
-            ans = res.first - m*mid;
-            r=mid-1;
-        }else l=mid+1;
-    }
-    ```
+注意这里对应的是下凸函数
+
+````
+```cpp
+int l=-inf, r=inf, ans=0;
+while(l<=r) {
+    int mid=(l+r)>>1;
+    auto res=check(mid); // 第一项为加上额外代价的答案， 第二项为真实使用 k
+    if(res.second<=m) {
+        ans = res.first - m*mid;
+        r=mid-1;
+    }else l=mid+1;
+}
+```
+````
 
 === "求解最大值"
-    注意这里对应的是下凸函数
+注意这里对应的是下凸函数
 
-    ```cpp
-    int l=-inf, r=inf, ans=inf;
-    while(l<=r) {
-        int mid=(l+r)>>1;
-        auto x=check(mid);
-        if(x.second <= k) {
-            ans=min(ans, x.first-k*mid);
-            l=mid+1;
-        }else r=mid-1;
-    }
-    ```
+````
+```cpp
+int l=-inf, r=inf, ans=inf;
+while(l<=r) {
+    int mid=(l+r)>>1;
+    auto x=check(mid);
+    if(x.second <= k) {
+        ans=min(ans, x.first-k*mid);
+        l=mid+1;
+    }else r=mid-1;
+}
+```
+````

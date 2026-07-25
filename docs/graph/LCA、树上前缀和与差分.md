@@ -12,49 +12,51 @@
 
 `g[i][j]=g[g[i][j-1]][j-1]`，及时间复杂度为 $\mathcal O(N\log N+Q\log N)$。
 
-??? code "CODE"
-    ```cpp
-    template<int N>
-    class LCA{
-        private:
-            int dep[N];
-            int fa[N][21];
-        public:
-            void build(int x=root,int f=0){
-                dep[x]=dep[f]+1;
-                fa[x][0]=f;
-                for(int i=1;i<=20;i++)
-                    fa[x][i]=fa[fa[x][i-1]][i-1];
-                for(auto y: v[x]){
-                    if(y==f) continue;
-                    build(y,x);
-                }
-            }
-            int lca(int x,int y){
-                if(dep[x]<dep[y]) swap(x,y);
-                for(int i=20;i>=0;i--){
-                    if(dep[fa[x][i]]>=dep[y])
-                        x=fa[x][i];
-                }
-                if(x==y) return x;
-                for(int i=20;i>=0;i--){
-                    if(fa[x][i]!=fa[y][i])
-                        x=fa[x][i],y=fa[y][i];
-                }
-                return fa[x][0];
-            }
-    };
-    LCA<N> L;
-    ```
+> [!code]- CODE
+>
+> ```cpp
+> template<int N>
+> class LCA{
+>     private:
+>         int dep[N];
+>         int fa[N][21];
+>     public:
+>         void build(int x=root,int f=0){
+>             dep[x]=dep[f]+1;
+>             fa[x][0]=f;
+>             for(int i=1;i<=20;i++)
+>                 fa[x][i]=fa[fa[x][i-1]][i-1];
+>             for(auto y: v[x]){
+>                 if(y==f) continue;
+>                 build(y,x);
+>             }
+>         }
+>         int lca(int x,int y){
+>             if(dep[x]<dep[y]) swap(x,y);
+>             for(int i=20;i>=0;i--){
+>                 if(dep[fa[x][i]]>=dep[y])
+>                     x=fa[x][i];
+>             }
+>             if(x==y) return x;
+>             for(int i=20;i>=0;i--){
+>                 if(fa[x][i]!=fa[y][i])
+>                     x=fa[x][i],y=fa[y][i];
+>             }
+>             return fa[x][0];
+>         }
+> };
+> LCA<N> L;
+> ```
 
 本做法比正常做法 **man 100ms**，加不加 `template` 都一样。
 
 ## 树上前缀和
 
-??? problem "问题描述"
-    有一颗多个带边权的无向边组成树
-    
-    现在查询多次两个点之间的距离。
+> [!problem]- 问题描述
+>
+> 有一颗多个带边权的无向边组成树
+>
+> 现在查询多次两个点之间的距离。
 
 我们先定义一个点的前缀和 `sum[]` 为这个点到根节点的路径长度。
 
@@ -66,10 +68,11 @@
 
 ## 树上差分
 
-??? problem "问题描述"
-    有一颗初始点权都为 0 的树，有多次操作每一次给一条路径上的点都加 `x`
-    
-    然后最后询问你每一个点的点权
+> [!problem]- 问题描述
+>
+> 有一颗初始点权都为 0 的树，有多次操作每一次给一条路径上的点都加 `x`
+>
+> 然后最后询问你每一个点的点权
 
 我们先定义一个树的差分数组 `d[x] = val[x]-val[fa[x]]`, 因而，当给 `x` 到 `y` 的路径处理时：
 

@@ -2,11 +2,11 @@
 
 ## 问题引入
 
-!!! question "示例问题"
-
-    给定一个 $n$ 次多项式 $F(x)$，和一个 $m$ 次多项式 $G(x)$。
-
-    请求出 $F(x)$ 和 $G(x)$ 的乘积。
+> [!question] 示例问题
+>
+> 给定一个 $n$ 次多项式 $F(x)$，和一个 $m$ 次多项式 $G(x)$。
+>
+> 请求出 $F(x)$ 和 $G(x)$ 的乘积。
 
 这里如果我们暴力去做就是 $\mathcal O(n m)$ 的，但是貌似这里已经没有更好的办法了。
 
@@ -40,15 +40,15 @@
 
 此时有以下性质：
 
-- $w_n^k = \left( cos(\frac{k \cdot 2\pi}{n}), sin(\frac{k \cdot 2\pi}{n}) \right)$
+* $w_n^k = \left( cos(\frac{k \cdot 2\pi}{n}), sin(\frac{k \cdot 2\pi}{n}) \right)$
 
-- $w_n^k = w_{2n}^{2k}$
+* $w_n^k = w_{2n}^{2k}$
 
-- $w_n^k = w_n^{k+n}$
+* $w_n^k = w_n^{k+n}$
 
-- $w_n^{k + n / 2} = -w_n^{k}$
+* $w_n^{k + n / 2} = -w_n^{k}$
 
-- $w_n^{a+b} = w_n^{a} * w_n^{b}$
+* $w_n^{a+b} = w_n^{a} * w_n^{b}$
 
 ## FFT
 
@@ -56,9 +56,9 @@
 
 我们考虑求出对于 $f(w_n)，k \in [0, n)$ ，那么这里我们考虑分成两个子问题：
 
-- $f_1(x) = a_0 + a_2 x + a_4 x^2 + \dots + a_{n-2} x^{\frac{n}2 -1}$ 。
+* $f_1(x) = a_0 + a_2 x + a_4 x^2 + \dots + a_{n-2} x^{\frac{n}2 -1}$ 。
 
-- $f_2(x) = a_1 + a_3 x + a_4 x^2 + \dots + a_{n-1} x^{\frac{n}{2}-1}$
+* $f_2(x) = a_1 + a_3 x + a_4 x^2 + \dots + a_{n-1} x^{\frac{n}{2}-1}$
 
 那么不难发现: $f(x) = f_1(x^2) + x * f_2(x^2)$ 。
 
@@ -72,7 +72,7 @@ $$
 
 1. $0\le k < \frac{n}{2}$ : $f(w_n^k) = f_1(w_n^{2k}) + w_n^k \times f_2(w_n^{2k}) = f_1(w_{n/2}^k) + w_n^k \times f_2(w_{n/2}^{k})$
 
-1. $\frac{n}{2} \le \frac{n}{2} + k < n$ : $f(w_n^{k+\frac{n}{2}}) = f_1(w_n^{2k+n}) + w_n^{k+\frac{n}{2}} \times f_2(w_n^{2k+n}) = f_1(w_{n/2}^k) - w_n^k \times f_2(w_{n/2}^{k})$
+2. $\frac{n}{2} \le \frac{n}{2} + k < n$ : $f(w_n^{k+\frac{n}{2}}) = f_1(w_n^{2k+n}) + w_n^{k+\frac{n}{2}} \times f_2(w_n^{2k+n}) = f_1(w_{n/2}^k) - w_n^k \times f_2(w_{n/2}^{k})$
 
 所以我们发现这两个式子居然只有中间的符号不一样, 于是现在两个问题被分成了来嗯个规模相同的子问题。只需要递归下去。
 
@@ -113,7 +113,6 @@ $$
 $$
 
 所以只有 $j = k$ 时，所以 $d_i = n \cdot a_i$ ， 那么 $a_i = \frac{d_i}n$ 。
-
 
 ```cpp
 void FFT(int n, vector<com>& v, bool invert) {
@@ -335,7 +334,7 @@ $$
 G(x) = G_0(x) (1 - \ln G(x) + F(x))
 $$
 
-~~真好，前面写的 $\ln$ 有可以用上了阿~~ 
+~~真好，前面写的 $\ln$ 有可以用上了阿~~
 
 代码：
 
@@ -356,121 +355,122 @@ void Exp(int n, const Poly& x, Poly& res) {
 
 ### 公用模板
 
-??? success "参考代码"
-    ```cpp
-    struct Poly {
-        #define norm(x) (((x)%mod+mod)%mod)
-        typedef long long ll;
-
-        static constexpr int mod = 998244353, G = 3;
-        static constexpr int N = 5e5+5;
-        
-        vector<int> a;
-
-        inline void resize(int n) { a.resize(n); }
-        inline int operator [] (int x) const { return a[x]; }
-        inline int& operator [] (int x) { return a[x]; }
-        inline int size() { return a.size(); }
-        inline int size() const { return a.size(); }
-        inline void clean() { a.clear(); }
-        inline void clean(int m) { a.clear(), a.resize(m); }
-
-        static int rev[N];
-        static inline void init(int n) {
-            int bit = 1;
-            while((1<<bit) < n) bit++;
-            for(int i=1; i<n; i++) rev[i] = (rev[i>>1]>>1) | ((i&1) << (bit-1));
-        }
-
-        static int ksm(int x, int y) {
-            int ans = 1;
-            while(y) {
-                if(y&1) ans = 1LL* ans*x%mod;
-                x = 1LL* x*x%mod, y>>=1;
-            }
-            return ans;
-        }
-
-        static void NTT(int n, Poly& v, bool invert) {
-            v.resize(n);
-            for(int i=0; i<n; i++) if(i < rev[i]) swap(v[i], v[rev[i]]);
-            static int invG = ksm(G, mod-2);
-            for(int len=1; len <= (n>>1); len<<=1) {
-                int W = ksm(invert ? invG : G, (mod-1) / (len<<1));
-                for(int i=0; i<n; i += (len<<1)) {
-                    int w = 1;
-                    for(int j=0; j<len; j++, w = 1LL* w*W%mod) {
-                        int a0 = v[i+j], a1 = 1LL* w*v[i+j+len]%mod;
-                        v[i+j] = (a0+a1)%mod, v[i+j+len] = norm(a0-a1);
-                    }
-                }
-            }
-
-            if(invert) {
-                int invN = ksm(n, mod-2); // 这里不能加 static
-                for(int i=0; i<n; i++) v[i] = 1LL* v[i]*invN %mod;
-            }
-        }
-
-        static void mul(const Poly& va, const Poly& vb, Poly& res) {
-            static Poly a, b; a = va, b = vb;
-            int t = 1; while(t <= a.size() + b.size() - 1) t<<=1;
-            init(t), res.clean(), res.resize(t);
-            
-            NTT(t, a, 0), NTT(t, b, 0);
-            for(int i=0; i<t; i++) res[i] = 1LL* a[i] * b[i] % mod;
-            NTT(t, res, 1), res.resize(a.size() + b.size() - 1);
-        }
-
-        // 多项式逆元
-        static void inv(int n, const Poly& a, Poly& res) {
-            if(n == 1) return res.clean(1), res[0] = ksm(a[0], mod-2), void();
-            inv((n+1)>>1, a, res), res.resize(n);
-
-            static Poly b; b.clean();
-            int t=1; while(t <= (n<<1)) t<<=1;
-            init(t), b=a, b.resize(n);
-
-            NTT(t, b, 0), NTT(t, res, 0);
-            for(int i=0; i<t; i++) res[i] = 1LL* norm(2 - 1LL* b[i]*res[i]) * res[i]%mod;
-            NTT(t, res, 1), res.resize(n);
-        }
-
-        // 多项式求积分
-        static void Int(const Poly& a, Poly& res) {
-            res.resize(a.size()+1);
-            for(int i=1; i<=a.size(); i++) res[i] = 1LL* a[i-1] * ksm(i, mod-2) %mod;
-            res[0] = 0;
-        }
-
-        // 多项式求导
-        static void Der(const Poly& a, Poly& res) {
-            res.resize(a.size()-1);
-            for(int i=1; i<a.size(); i++) res[i-1] = 1LL* i*a[i] %mod;
-        }
-
-        // 多项式 ln
-        static void Ln(const Poly& x, Poly& res) {
-            static Poly a, b; a.clean(), b.clean();
-
-            Der(x, a), inv(x.size(), x, b);
-            mul(a, b, a), Int(a, res);
-        }
-
-        // 多项式 exp
-        static void Exp(int n, const Poly& x, Poly& res) {
-            if(n == 1) return res.clean(1), res[0]=1, void();
-            Exp((n+1)>>1, x, res), res.resize(n);
-
-            static Poly lng, f; Ln(res, lng);
-            int t=1; while(t <= (n<<1)) t<<=1;
-            init(t), f=x, f.resize(n);
-
-            NTT(t, f, 0), NTT(t, lng, 0), NTT(t, res, 0);
-            for(int i=0; i<t; i++) res[i] = 1LL* norm(1 - lng[i] + f[i]) * res[i] %mod;
-            NTT(t, res, 1), res.resize(n);
-        }
-    };
-
-    int Poly::rev[Poly::N];
-    ```
+> [!success]- 参考代码
+>
+> ```cpp
+> struct Poly {
+>     #define norm(x) (((x)%mod+mod)%mod)
+>     typedef long long ll;
+>
+>     static constexpr int mod = 998244353, G = 3;
+>     static constexpr int N = 5e5+5;
+>     
+>     vector<int> a;
+>
+>     inline void resize(int n) { a.resize(n); }
+>     inline int operator [] (int x) const { return a[x]; }
+>     inline int& operator [] (int x) { return a[x]; }
+>     inline int size() { return a.size(); }
+>     inline int size() const { return a.size(); }
+>     inline void clean() { a.clear(); }
+>     inline void clean(int m) { a.clear(), a.resize(m); }
+>
+>     static int rev[N];
+>     static inline void init(int n) {
+>         int bit = 1;
+>         while((1<<bit) < n) bit++;
+>         for(int i=1; i<n; i++) rev[i] = (rev[i>>1]>>1) | ((i&1) << (bit-1));
+>     }
+>
+>     static int ksm(int x, int y) {
+>         int ans = 1;
+>         while(y) {
+>             if(y&1) ans = 1LL* ans*x%mod;
+>             x = 1LL* x*x%mod, y>>=1;
+>         }
+>         return ans;
+>     }
+>
+>     static void NTT(int n, Poly& v, bool invert) {
+>         v.resize(n);
+>         for(int i=0; i<n; i++) if(i < rev[i]) swap(v[i], v[rev[i]]);
+>         static int invG = ksm(G, mod-2);
+>         for(int len=1; len <= (n>>1); len<<=1) {
+>             int W = ksm(invert ? invG : G, (mod-1) / (len<<1));
+>             for(int i=0; i<n; i += (len<<1)) {
+>                 int w = 1;
+>                 for(int j=0; j<len; j++, w = 1LL* w*W%mod) {
+>                     int a0 = v[i+j], a1 = 1LL* w*v[i+j+len]%mod;
+>                     v[i+j] = (a0+a1)%mod, v[i+j+len] = norm(a0-a1);
+>                 }
+>             }
+>         }
+>
+>         if(invert) {
+>             int invN = ksm(n, mod-2); // 这里不能加 static
+>             for(int i=0; i<n; i++) v[i] = 1LL* v[i]*invN %mod;
+>         }
+>     }
+>
+>     static void mul(const Poly& va, const Poly& vb, Poly& res) {
+>         static Poly a, b; a = va, b = vb;
+>         int t = 1; while(t <= a.size() + b.size() - 1) t<<=1;
+>         init(t), res.clean(), res.resize(t);
+>         
+>         NTT(t, a, 0), NTT(t, b, 0);
+>         for(int i=0; i<t; i++) res[i] = 1LL* a[i] * b[i] % mod;
+>         NTT(t, res, 1), res.resize(a.size() + b.size() - 1);
+>     }
+>
+>     // 多项式逆元
+>     static void inv(int n, const Poly& a, Poly& res) {
+>         if(n == 1) return res.clean(1), res[0] = ksm(a[0], mod-2), void();
+>         inv((n+1)>>1, a, res), res.resize(n);
+>
+>         static Poly b; b.clean();
+>         int t=1; while(t <= (n<<1)) t<<=1;
+>         init(t), b=a, b.resize(n);
+>
+>         NTT(t, b, 0), NTT(t, res, 0);
+>         for(int i=0; i<t; i++) res[i] = 1LL* norm(2 - 1LL* b[i]*res[i]) * res[i]%mod;
+>         NTT(t, res, 1), res.resize(n);
+>     }
+>
+>     // 多项式求积分
+>     static void Int(const Poly& a, Poly& res) {
+>         res.resize(a.size()+1);
+>         for(int i=1; i<=a.size(); i++) res[i] = 1LL* a[i-1] * ksm(i, mod-2) %mod;
+>         res[0] = 0;
+>     }
+>
+>     // 多项式求导
+>     static void Der(const Poly& a, Poly& res) {
+>         res.resize(a.size()-1);
+>         for(int i=1; i<a.size(); i++) res[i-1] = 1LL* i*a[i] %mod;
+>     }
+>
+>     // 多项式 ln
+>     static void Ln(const Poly& x, Poly& res) {
+>         static Poly a, b; a.clean(), b.clean();
+>
+>         Der(x, a), inv(x.size(), x, b);
+>         mul(a, b, a), Int(a, res);
+>     }
+>
+>     // 多项式 exp
+>     static void Exp(int n, const Poly& x, Poly& res) {
+>         if(n == 1) return res.clean(1), res[0]=1, void();
+>         Exp((n+1)>>1, x, res), res.resize(n);
+>
+>         static Poly lng, f; Ln(res, lng);
+>         int t=1; while(t <= (n<<1)) t<<=1;
+>         init(t), f=x, f.resize(n);
+>
+>         NTT(t, f, 0), NTT(t, lng, 0), NTT(t, res, 0);
+>         for(int i=0; i<t; i++) res[i] = 1LL* norm(1 - lng[i] + f[i]) * res[i] %mod;
+>         NTT(t, res, 1), res.resize(n);
+>     }
+> };
+>
+> int Poly::rev[Poly::N];
+> ```

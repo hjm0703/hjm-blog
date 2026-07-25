@@ -16,20 +16,20 @@ bitset<N> A; \\ N 为bitset的大小
 
 **基本成员函数：**
 
-|            操作写法             |                 含义                  |        时间复杂度         |
-| :-----------------------------: | :-----------------------------------: | :-----------------------: |
-|              `[]`               |      访问 or 修改 某一个下标的值      |      $\mathcal O(1)$      |
-|            `count()`            |         返回 `true` 的数量。          | $\mathcal O(\frac{N}{w})$ |
-|             `all()`             |         检查所有位是否为 `1`          | $\mathcal O(\frac{N}{w})$ |
-|             `any()`             |          检查是否存在 `1` 位          | $\mathcal O(\frac{N}{w})$ |
-|            `none()`             |         检查是否所有位为 `0`          | $\mathcal O(\frac{N}{w})$ |
-|             `set()`             |           所有位置变为 `1`            | $\mathcal O(\frac{N}{w})$ |
-|            `reset()`            |           所有位置变为 `0`            | $\mathcal O(\frac{N}{w})$ |
-|               `&`               |                按位与                 | $\mathcal O(\frac{N}{w})$ |
-|               `\|`               |                按位或                 | $\mathcal O(\frac{N}{w})$ |
-|               `^`               |               按位异或                | $\mathcal O(\frac{N}{w})$ |
-|               `^`               |               按位取反                | $\mathcal O(\frac{N}{w})$ |
-|           `<<` & `>>`           |              左移 & 右移              | $\mathcal O(\frac{N}{w})$ |
+|              操作写法               |            含义             |           时间复杂度           |
+| :-----------------------------: | :-----------------------: | :-----------------------: |
+|              `[]`               |     访问 or 修改 某一个下标的值      |      $\mathcal O(1)$      |
+|            `count()`            |      返回 `true` 的数量。       | $\mathcal O(\frac{N}{w})$ |
+|             `all()`             |       检查所有位是否为 `1`        | $\mathcal O(\frac{N}{w})$ |
+|             `any()`             |       检查是否存在 `1` 位        | $\mathcal O(\frac{N}{w})$ |
+|            `none()`             |       检查是否所有位为 `0`        | $\mathcal O(\frac{N}{w})$ |
+|             `set()`             |        所有位置变为 `1`         | $\mathcal O(\frac{N}{w})$ |
+|            `reset()`            |        所有位置变为 `0`         | $\mathcal O(\frac{N}{w})$ |
+|               `&`               |            按位与            | $\mathcal O(\frac{N}{w})$ |
+|              `\|`               |            按位或            | $\mathcal O(\frac{N}{w})$ |
+|               `^`               |           按位异或            | $\mathcal O(\frac{N}{w})$ |
+|               `^`               |           按位取反            | $\mathcal O(\frac{N}{w})$ |
+|           `<<` & `>>`           |          左移 & 右移          | $\mathcal O(\frac{N}{w})$ |
 | `bitset<N>(unsigned long long)` | 把一个 64 位无符号整数转换为 `bitset` |      $\mathcal O(N)$      |
 
 （这里的操作并非所有，只是大多数如 `flip()` 都可以直接用位运算操作 `~` 代替，但是其中有一些操作还是很有必要的，如 `count()` 如果暴力实现时间复杂的远大于直接调用）
@@ -38,9 +38,9 @@ bitset<N> A; \\ N 为bitset的大小
 
 这里有两种理解方式：
 
-- 把他当作一个 `bool` 数组
+* 把他当作一个 `bool` 数组
 
-- 把他当作一个超级大的无符号整数
+* 把他当作一个超级大的无符号整数
 
 ## 基本用途
 
@@ -130,137 +130,138 @@ for(reg int i=2;i<=n;i++){
 
 虽然说 `bitset` 的空间复杂度比较小，但是因为是离线，我们要求把每一次询问产生的 `bitset` 记录下来，一遍统计答案，所以 $\mathcal O(\frac{N^2}{w})$ 会炸，需要将其分为多个部分（每一个处理 `2e4` 次询问）。
 
-??? success "完整代码"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    /*!@#$%^&*!@#$%^&*~~ Boundary Line ~~*&^%$#@!*&^%$#@!*/
-    const int N=1e5+5,T=2e4;
-    int n,m;
-    int tot;
-    int len[N];
-    int a[N],b[N];
-    int pos[N],cnt[N];
-    struct asks{
-        int l,r,ip;
-        bool operator < (const asks x) const{
-            if(pos[l]==pos[x.l]) return r<x.r;
-            return l<x.l;
-        }
-    }op[N];
-    /*!@#$%^&*!@#$%^&*~~ Boundary Line ~~*&^%$#@!*&^%$#@!*/
-    bitset<N> nw,vis,ans[T+5];
-    void updata(int x,int y){
-        if(y==1){
-            cnt[x]++;
-            nw[x+cnt[x]-1]=1;
-        }else{
-            nw[x+cnt[x]-1]=0;
-            cnt[x]--;
-        }
-    }
-    void solve(int m){
-        memset(op,0,sizeof op);
-        memset(cnt,0,sizeof cnt);
-        tot=0;
-        for(int i=1;i<=m;i++){
-            ans[i].reset();
-            len[i]=0;
-            for(int j=1;j<=3;j++){
-                int l,r;cin>>l>>r;
-                len[i]+=(r-l+1);
-                op[++tot]={l,r,i};
-            }
-        }
-        
-        nw.reset(),vis.reset();
-        sort(op+1,op+tot+1);
-        int l=1,r=0;
-        for(int i=1;i<=tot;i++){
-            while(l>op[i].l) updata(a[--l],1);
-            while(r<op[i].r) updata(a[++r],1);
-            while(l<op[i].l) updata(a[l++],-1);
-            while(r>op[i].r) updata(a[r--],-1);
-            
-            if(vis[op[i].ip]) ans[op[i].ip]&=nw;
-            else ans[op[i].ip]=nw,vis[op[i].ip]=1;
-        }
-        for(int i=1;i<=m;i++){
-            cout<<len[i]-3*(ans[i].count())<<'\n';
-        }
-    }
-    /*!@#$%^&*!@#$%^&*~~ Boundary Line ~~*&^%$#@!*&^%$#@!*/
-    signed main(){
-        cin>>n>>m;
-        int len=sqrt(n);
-        for(int i=1;i<=n;i++){
-            cin>>a[i];
-            b[i]=a[i],pos[i]=(i-1)/len+1;
-        }
-        sort(b+1,b+n+1);
-        for(int i=1;i<=n;i++) a[i]=(lower_bound(b+1,b+n+1,a[i])-b);
-        while(m){
-            if(m>T){
-                solve(T);
-                m-=T;
-            }else{
-                solve(m);
-                break;
-            }
-        }
-        return 0;
-    }
-    ```
+> [!success]- 完整代码
+>
+> ```cpp
+> #include <bits/stdc++.h>
+> using namespace std;
+> /*!@#$%^&*!@#$%^&*~~ Boundary Line ~~*&^%$#@!*&^%$#@!*/
+> const int N=1e5+5,T=2e4;
+> int n,m;
+> int tot;
+> int len[N];
+> int a[N],b[N];
+> int pos[N],cnt[N];
+> struct asks{
+>     int l,r,ip;
+>     bool operator < (const asks x) const{
+>         if(pos[l]==pos[x.l]) return r<x.r;
+>         return l<x.l;
+>     }
+> }op[N];
+> /*!@#$%^&*!@#$%^&*~~ Boundary Line ~~*&^%$#@!*&^%$#@!*/
+> bitset<N> nw,vis,ans[T+5];
+> void updata(int x,int y){
+>     if(y==1){
+>         cnt[x]++;
+>         nw[x+cnt[x]-1]=1;
+>     }else{
+>         nw[x+cnt[x]-1]=0;
+>         cnt[x]--;
+>     }
+> }
+> void solve(int m){
+>     memset(op,0,sizeof op);
+>     memset(cnt,0,sizeof cnt);
+>     tot=0;
+>     for(int i=1;i<=m;i++){
+>         ans[i].reset();
+>         len[i]=0;
+>         for(int j=1;j<=3;j++){
+>             int l,r;cin>>l>>r;
+>             len[i]+=(r-l+1);
+>             op[++tot]={l,r,i};
+>         }
+>     }
+>     
+>     nw.reset(),vis.reset();
+>     sort(op+1,op+tot+1);
+>     int l=1,r=0;
+>     for(int i=1;i<=tot;i++){
+>         while(l>op[i].l) updata(a[--l],1);
+>         while(r<op[i].r) updata(a[++r],1);
+>         while(l<op[i].l) updata(a[l++],-1);
+>         while(r>op[i].r) updata(a[r--],-1);
+>         
+>         if(vis[op[i].ip]) ans[op[i].ip]&=nw;
+>         else ans[op[i].ip]=nw,vis[op[i].ip]=1;
+>     }
+>     for(int i=1;i<=m;i++){
+>         cout<<len[i]-3*(ans[i].count())<<'\n';
+>     }
+> }
+> /*!@#$%^&*!@#$%^&*~~ Boundary Line ~~*&^%$#@!*&^%$#@!*/
+> signed main(){
+>     cin>>n>>m;
+>     int len=sqrt(n);
+>     for(int i=1;i<=n;i++){
+>         cin>>a[i];
+>         b[i]=a[i],pos[i]=(i-1)/len+1;
+>     }
+>     sort(b+1,b+n+1);
+>     for(int i=1;i<=n;i++) a[i]=(lower_bound(b+1,b+n+1,a[i])-b);
+>     while(m){
+>         if(m>T){
+>             solve(T);
+>             m-=T;
+>         }else{
+>             solve(m);
+>             break;
+>         }
+>     }
+>     return 0;
+> }
+> ```
 
 **优化埃式筛**
 
 其实就是把埃式筛的数组替换为 **bitset**，这里有一份对比的代码：
 
-
-??? success "对比代码"
-    ```cpp
-    #include <bits/stdc++.h>
-    using namespace std;
-    namespace OLD{
-        const int N=1e8+5;
-        const int M=N/log(N)+10;
-        bool v[N];
-        int prime[M],tot;
-        void primes(int a){
-            for(int i=2;i<=a;i++){
-                if(v[i]) continue;
-                else prime[++tot]=i;
-                for(int j=i;j<=a/i;j++) v[i*j]=1;
-            }
-        }
-    }
-    namespace NEW{
-        const int N=1e8+5;
-        const int M=N/log(N)+10;
-        bitset<N> v;
-        int prime[M],tot;
-        void primes(int a){
-            tot=0;
-            for(int i=2;i<=a;i++){
-                if(v[i]) continue;
-                else prime[++tot]=i;
-                for(int j=i;j<=a/i;j++) v[i*j]=1;
-            }
-        }
-    }
-    signed main(){
-        {
-            double st=clock();
-            OLD::primes(1e8);
-            double ed=clock();
-            cout<<"未添加 bitset: "<<ed-st<<"ms\n";	
-        }
-        {
-            double st=clock();
-            NEW::primes(1e8);
-            double ed=clock();
-            cout<<"添加 bitset: "<<ed-st<<"ms\n";	
-        }
-        return 0;
-    }
-    ```
+> [!success]- 对比代码
+>
+> ```cpp
+> #include <bits/stdc++.h>
+> using namespace std;
+> namespace OLD{
+>     const int N=1e8+5;
+>     const int M=N/log(N)+10;
+>     bool v[N];
+>     int prime[M],tot;
+>     void primes(int a){
+>         for(int i=2;i<=a;i++){
+>             if(v[i]) continue;
+>             else prime[++tot]=i;
+>             for(int j=i;j<=a/i;j++) v[i*j]=1;
+>         }
+>     }
+> }
+> namespace NEW{
+>     const int N=1e8+5;
+>     const int M=N/log(N)+10;
+>     bitset<N> v;
+>     int prime[M],tot;
+>     void primes(int a){
+>         tot=0;
+>         for(int i=2;i<=a;i++){
+>             if(v[i]) continue;
+>             else prime[++tot]=i;
+>             for(int j=i;j<=a/i;j++) v[i*j]=1;
+>         }
+>     }
+> }
+> signed main(){
+>     {
+>         double st=clock();
+>         OLD::primes(1e8);
+>         double ed=clock();
+>         cout<<"未添加 bitset: "<<ed-st<<"ms\n";	
+>     }
+>     {
+>         double st=clock();
+>         NEW::primes(1e8);
+>         double ed=clock();
+>         cout<<"添加 bitset: "<<ed-st<<"ms\n";	
+>     }
+>     return 0;
+> }
+> ```
