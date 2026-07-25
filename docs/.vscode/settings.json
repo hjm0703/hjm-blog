@@ -1,12 +1,12 @@
 {
     "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "files.exclude": {
-        "**/.git": true,
-        "**/css": true,
-        "**/js": true,
-        "**/javascripts": true,
-        "**/stylesheets": true,
-    },
+    // "files.exclude": {
+    //     "**/.git": true,
+    //     "**/css": true,
+    //     "**/js": true,
+    //     "**/javascripts": true,
+    //     "**/stylesheets": true,
+    // },
     "markdown.styles": [
         "D:\\noip\\HJM\\.vscode\\markdown.css"
     ],

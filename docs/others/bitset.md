@@ -16,20 +16,20 @@ bitset<N> A; \\ N 为bitset的大小
 
 **基本成员函数：**
 
-|            操作写法             |                 含义                  |        时间复杂度         |
-| :-----------------------------: | :-----------------------------------: | :-----------------------: |
-|              `[]`               |      访问 or 修改 某一个下标的值      |      $\mathcal O(1)$      |
-|            `count()`            |         返回 `true` 的数量。          | $\mathcal O(\frac{N}{w})$ |
-|             `all()`             |         检查所有位是否为 `1`          | $\mathcal O(\frac{N}{w})$ |
-|             `any()`             |          检查是否存在 `1` 位          | $\mathcal O(\frac{N}{w})$ |
-|            `none()`             |         检查是否所有位为 `0`          | $\mathcal O(\frac{N}{w})$ |
-|             `set()`             |           所有位置变为 `1`            | $\mathcal O(\frac{N}{w})$ |
-|            `reset()`            |           所有位置变为 `0`            | $\mathcal O(\frac{N}{w})$ |
-|               `&`               |                按位与                 | $\mathcal O(\frac{N}{w})$ |
-|               `\|`               |                按位或                 | $\mathcal O(\frac{N}{w})$ |
-|               `^`               |               按位异或                | $\mathcal O(\frac{N}{w})$ |
-|               `^`               |               按位取反                | $\mathcal O(\frac{N}{w})$ |
-|           `<<` & `>>`           |              左移 & 右移              | $\mathcal O(\frac{N}{w})$ |
+|              操作写法               |            含义             |           时间复杂度           |
+| :-----------------------------: | :-----------------------: | :-----------------------: |
+|              `[]`               |     访问 or 修改 某一个下标的值      |      $\mathcal O(1)$      |
+|            `count()`            |      返回 `true` 的数量。       | $\mathcal O(\frac{N}{w})$ |
+|             `all()`             |       检查所有位是否为 `1`        | $\mathcal O(\frac{N}{w})$ |
+|             `any()`             |       检查是否存在 `1` 位        | $\mathcal O(\frac{N}{w})$ |
+|            `none()`             |       检查是否所有位为 `0`        | $\mathcal O(\frac{N}{w})$ |
+|             `set()`             |        所有位置变为 `1`         | $\mathcal O(\frac{N}{w})$ |
+|            `reset()`            |        所有位置变为 `0`         | $\mathcal O(\frac{N}{w})$ |
+|               `&`               |            按位与            | $\mathcal O(\frac{N}{w})$ |
+|              `\|`               |            按位或            | $\mathcal O(\frac{N}{w})$ |
+|               `^`               |           按位异或            | $\mathcal O(\frac{N}{w})$ |
+|               `^`               |           按位取反            | $\mathcal O(\frac{N}{w})$ |
+|           `<<` & `>>`           |          左移 & 右移          | $\mathcal O(\frac{N}{w})$ |
 | `bitset<N>(unsigned long long)` | 把一个 64 位无符号整数转换为 `bitset` |      $\mathcal O(N)$      |
 
 （这里的操作并非所有，只是大多数如 `flip()` 都可以直接用位运算操作 `~` 代替，但是其中有一些操作还是很有必要的，如 `count()` 如果暴力实现时间复杂的远大于直接调用）

@@ -7,9 +7,6 @@ site_url: https://hjm-blog.pages.dev
 # 版权信息
 copyright: © 2026 hjm0703
 
-repo_url: https://github.com/hjm0703/hjm-blog
-repo_name: hjm0703/hjm-blog
-
 # 主题配置（与 OI Wiki 一致）
 theme:
   name: material
@@ -18,7 +15,6 @@ theme:
   search_index_only: true
   icon:
     logo: material/school
-    repo: fontawesome/brands/git-alt
   palette:
     # 亮色模式
     - media: "(prefers-color-scheme: light)"
@@ -85,6 +81,7 @@ extra_javascript:
   - javascripts/math-csr.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - javascripts/theme-picker.js
+  - javascripts/extra.js
 
 # 导航结构
 nav:
@@ -129,6 +126,7 @@ nav:
     - 线性基: math/线性基.md
   - 字符串进阶:
     - SA 数组: str/SA数组.md
+    - 后缀自动机: str/后缀自动机.md
   - 杂项:
     - bitset: others/bitset.md
     - 构造: others/构造.md
